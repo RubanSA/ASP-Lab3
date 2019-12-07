@@ -10,19 +10,43 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>Index</title>
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap-theme.css" rel="stylesheet" />
+    <style>
+        select {
+            width: 200px;
+        }
+    </style>
 </head>
 <body>
-    @using (Html.BeginForm())
-    {
-        <div>
-            @Html.EditorFor(t=>t.AddedValue, "Введите строку для добавления")
+    <div class="panel-success">
+        <div class="panel-body">
+            @using (Html.BeginForm())
+            {
+                <div class="form-group text-center">
+                    <p>
+                        Введите строку для добавления:
+                        @Html.EditorFor(t => t.AddedValue)
+                    </p>
+
+                </div>
+                <div class="form-group text-center">
+                    @*@Html.HiddenFor(t=>t.List)*@
+                    <p>
+                        @Html.ListBoxFor(x => x.Values, Model.List)
+                    </p>
+
+                </div>
+                <div class="text-center">
+                    <input type="submit" name="action" value="Добавить" class="btn btn-primary" />
+                    <input type="submit" name="action" value="Редактировать" class="btn btn-primary" />
+                    <input type="submit" name="action" value="Удалить" class="btn btn-warning" />
+                </div>
+
+            }
         </div>
-        <div>
-            @Html.HiddenFor(t=>t.List)
-            @Html.ListBoxFor(x => x.Values, Model.List)
-        </div>
-        <input type="submit" name="action" value="Добавить" />
-        <input type="submit" name="action" value="Удалить" />
-    }
+    </div>
+    
+   
 </body>
 </html>

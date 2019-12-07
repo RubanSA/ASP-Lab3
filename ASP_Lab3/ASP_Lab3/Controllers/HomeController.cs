@@ -25,12 +25,7 @@ namespace ASP_Lab3.Controllers
         {
             repos = repository;
         }
-        //[ActionName("Add")]
-        public ActionResult Add(string addvalue)
-        {
-            repos.Add(new SelectListItem() { Text = addvalue });
-            return RedirectToAction("Index");
-        }
+
         [HttpPost]
         public ActionResult Index(ListModel model, string action)
         {
@@ -41,10 +36,21 @@ namespace ASP_Lab3.Controllers
                     repos.List = repos.List.Where(t => !model.Values.Contains(t.Value)).ToList();
                 }
                 else
-                    if (action == "Добавить")
+                    if (action == "Добавить" && !string.IsNullOrEmpty(model.AddedValue))
                 {
-                    int max = repos.List.Select(t => int.Parse(t.Value)).Max();
-                    repos.Add(new SelectListItem { Text = model.AddedValue, Value = (max+1).ToString() });
+                    int max = repos.List.Count == 0 ? 0 : repos.List.Select(t => int.Parse(t.Value)).Max();
+                    repos.Add(new SelectListItem { Text = model.AddedValue, Value = (max + 1).ToString() });
+                }
+                else
+                    if (action == "Редактировать")
+                {
+                    if (model.Values.Count() > 0)
+                    {
+                        string first = model.Values.First();
+                        SelectListItem editedItem = repos.List.First(e => e.Value == first);
+                        editedItem.Text = model.AddedValue;
+
+                    }
                 }
             }
             return RedirectToAction("Index");
