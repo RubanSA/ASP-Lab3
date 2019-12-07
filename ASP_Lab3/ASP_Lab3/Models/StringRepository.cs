@@ -5,27 +5,37 @@ using System.Web;
 
 namespace ASP_Lab3.Models
 {
-    public class StringRepository : IRepository
+    public class StringRepository<T> : IRepository<T>
     {
-        private List<string> list = new List<string>();
-        public void Add(string str)
+        public IList<T> List { get; set; } = new List<T>();
+        public void Add(T str)
         {
-            list.Add(str);
+            List.Add(str);
         }
 
         public void Clear()
         {
-            list.Clear();
+            List.Clear();
         }
 
-        public void Remove(string str)
+        
+        
+
+        public void Remove(T item)
         {
-            list.Remove(str);
+            List.Remove(item);
         }
+
+        
 
         public void RemoveAt(int index)
         {
-            list.RemoveAt(index);
+            List.RemoveAt(index);
+        }
+
+        public IEnumerable<T> GetList()
+        {
+            return List;
         }
     }
 }

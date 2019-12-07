@@ -1,0 +1,28 @@
+﻿@using ASP_Lab3.Models
+@model ListModel
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    @using (Html.BeginForm())
+    {
+        <div>
+            @Html.EditorFor(t=>t.AddedValue, "Введите строку для добавления")
+        </div>
+        <div>
+            @Html.HiddenFor(t=>t.List)
+            @Html.ListBoxFor(x => x.Values, Model.List)
+        </div>
+        <input type="submit" name="action" value="Добавить" />
+        <input type="submit" name="action" value="Удалить" />
+    }
+</body>
+</html>

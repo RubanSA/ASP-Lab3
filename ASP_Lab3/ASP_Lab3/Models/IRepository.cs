@@ -6,11 +6,13 @@ using System.Threading.Tasks;
 
 namespace ASP_Lab3.Models
 {
-    public interface IRepository
+    public interface IRepository<T>
     {
-        void Add(string str);
-        void Remove(string str);
+        void Add(T item);
+        void Remove(T item);
         void RemoveAt(int index);
         void Clear();
+        IEnumerable<T> GetList();
+        IList<T> List { get; set; }
     }
 }
